@@ -51,7 +51,9 @@ class CalendarList extends Component {
     /** Whether to use static header that will not scroll with the list (horizontal only) */
     staticHeader: PropTypes.bool,
     /** A custom key extractor for the generated calendar months */
-    keyExtractor: PropTypes.func
+    keyExtractor: PropTypes.func,
+    /** offset for getItemLayout, default 0 */
+    calendarScrollOffset: PropTypes.number,
   }
 
   static defaultProps = {
@@ -64,6 +66,7 @@ class CalendarList extends Component {
     scrollEnabled: true,
     scrollsToTop: false,
     removeClippedSubviews: Platform.OS === 'android' ? false : true,
+    calendarScrollOffset: 0,
     keyExtractor: (item, index) => String(index)
   }
 
@@ -221,9 +224,11 @@ class CalendarList extends Component {
   }
 
   getItemLayout(data, index) {
+    const height = this.props.horizontal ? this.props.calendarWidth : this.props.calendarHeight
+
     return {
-      length: this.props.horizontal ? this.props.calendarWidth : this.props.calendarHeight, 
-      offset: (this.props.horizontal ? this.props.calendarWidth : this.props.calendarHeight) * index, index
+      length: height, 
+      offset: (height * index) - this.props.calendarScrollOffset, index
     };
   }
 
