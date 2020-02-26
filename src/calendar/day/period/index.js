@@ -190,19 +190,11 @@ class Day extends Component {
     }
 
     return (
-      <TouchableWithoutFeedback
-        testID={this.props.testID}
-        onPress={this.onDayPress}
-        onLongPress={this.onDayLongPress}
-        disabled={this.props.marking.disableTouchEvent}
-        accessible
-        accessibilityRole={this.props.marking.disableTouchEvent ? undefined : 'button'}
-        accessibilityLabel={this.props.accessibilityLabel}
-      >
+      <TouchableWithoutFeedback onPress={this.onDayPress}>
         <View style={this.style.wrapper}>
           {fillers}
-          <View style={containerStyle}>
-            <Text allowFontScaling={false} style={textStyle}>{String(this.props.children)}</Text>
+          <View>
+            <Text style={[textStyle, containerStyle]}>{String(this.props.children)}</Text>
           </View>
         </View>
       </TouchableWithoutFeedback>
