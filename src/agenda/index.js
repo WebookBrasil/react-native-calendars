@@ -91,7 +91,8 @@ export default class AgendaView extends Component {
     /** Called when the momentum scroll starts for the agenda list. **/
     onMomentumScrollBegin: PropTypes.func,
     /** Called when the momentum scroll stops for the agenda list. **/
-    onMomentumScrollEnd: PropTypes.func
+    onMomentumScrollEnd: PropTypes.func,
+    staticHeader: PropTypes.bool,
   };
 
   constructor(props) {
@@ -347,6 +348,10 @@ export default class AgendaView extends Component {
     return { ...markings, [key]: { ...(markings[key] || {}), ...{ selected: true } } };
   }
 
+  scrollToMonth(month) {
+    this.calendar.scrollToMonth(month)
+  }
+
   render() {
     const agendaHeight = this.initialScrollPadPosition();
     const weekDaysNames = dateutils.weekDayNames(this.props.firstDay);
@@ -425,6 +430,7 @@ export default class AgendaView extends Component {
                 this.calendar.scrollToDay(this.state.selectedDay.clone(), this.calendarOffset(), false);
               }}
               calendarWidth={this.viewWidth}
+              staticHeader={this.props.staticHeader}
               theme={this.props.theme}
               onVisibleMonthsChange={this.onVisibleMonthsChange.bind(this)}
               ref={(c) => this.calendar = c}
@@ -445,6 +451,7 @@ export default class AgendaView extends Component {
               disabledByDefault={this.props.disabledByDefault}
               displayLoadingIndicator={this.props.displayLoadingIndicator}
               showWeekNumbers={this.props.showWeekNumbers}
+              renderExtra={this.props.renderExtra}
             />
           </Animated.View>
           {knob}

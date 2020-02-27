@@ -1,11 +1,11 @@
-import React, {Component} from 'react';
-import {ActivityIndicator, Platform} from 'react-native';
-import {View, Text, TouchableOpacity, Image} from 'react-native';
+import React, { Component } from 'react';
+import { ActivityIndicator, Platform } from 'react-native';
+import { View, Text, TouchableOpacity, Image } from 'react-native';
 import XDate from 'xdate';
 import PropTypes from 'prop-types';
 import styleConstructor from './style';
-import {weekDayNames} from '../../dateutils';
-import {CHANGE_MONTH_LEFT_ARROW, CHANGE_MONTH_RIGHT_ARROW} from '../../testIDs';
+import { weekDayNames } from '../../dateutils';
+import { CHANGE_MONTH_LEFT_ARROW, CHANGE_MONTH_RIGHT_ARROW } from '../../testIDs';
 
 
 class CalendarHeader extends Component {
@@ -51,7 +51,8 @@ class CalendarHeader extends Component {
   }
 
   shouldComponentUpdate(nextProps) {
-    if (nextProps.month.toString('yyyy MM') !== this.props.month.toString('yyyy MM')) {
+    if (nextProps.month && this.props.month &&
+      nextProps.month.toString('yyyy MM') !== this.props.month.toString('yyyy MM')) {
       return true;
     }
     if (nextProps.showIndicator !== this.props.showIndicator) {
@@ -82,7 +83,7 @@ class CalendarHeader extends Component {
   }
 
   onPressLeft() {
-    const {onPressArrowLeft} = this.props;
+    const { onPressArrowLeft } = this.props;
     if (typeof onPressArrowLeft === 'function') {
       return onPressArrowLeft(this.substractMonth, this.props.month);
     }
@@ -90,7 +91,7 @@ class CalendarHeader extends Component {
   }
 
   onPressRight() {
-    const {onPressArrowRight} = this.props;
+    const { onPressArrowRight } = this.props;
     if (typeof onPressArrowRight === 'function') {
       return onPressArrowRight(this.addMonth, this.props.month);
     }
@@ -98,10 +99,10 @@ class CalendarHeader extends Component {
   }
 
   render() {
-    let leftArrow = <View/>;
-    let rightArrow = <View/>;
+    let leftArrow = <View />;
+    let rightArrow = <View />;
     let weekDaysNames = weekDayNames(this.props.firstDay);
-    const {testID} = this.props;
+    const { testID } = this.props;
 
     if (!this.props.hideArrows) {
       leftArrow = (
@@ -109,8 +110,8 @@ class CalendarHeader extends Component {
           onPress={this.onPressLeft}
           disabled={this.props.disableArrowLeft}
           style={this.style.arrow}
-          hitSlop={{left: 20, right: 20, top: 20, bottom: 20}}
-          testID={testID ? `${CHANGE_MONTH_LEFT_ARROW}-${testID}`: CHANGE_MONTH_LEFT_ARROW}
+          hitSlop={{ left: 20, right: 20, top: 20, bottom: 20 }}
+          testID={testID ? `${CHANGE_MONTH_LEFT_ARROW}-${testID}` : CHANGE_MONTH_LEFT_ARROW}
         >
           {this.props.renderArrow
             ? this.props.renderArrow('left')
@@ -125,8 +126,8 @@ class CalendarHeader extends Component {
           onPress={this.onPressRight}
           disabled={this.props.disableArrowRight}
           style={this.style.arrow}
-          hitSlop={{left: 20, right: 20, top: 20, bottom: 20}}
-          testID={testID ? `${CHANGE_MONTH_RIGHT_ARROW}-${testID}`: CHANGE_MONTH_RIGHT_ARROW}
+          hitSlop={{ left: 20, right: 20, top: 20, bottom: 20 }}
+          testID={testID ? `${CHANGE_MONTH_RIGHT_ARROW}-${testID}` : CHANGE_MONTH_RIGHT_ARROW}
         >
           {this.props.renderArrow
             ? this.props.renderArrow('right')
@@ -140,19 +141,19 @@ class CalendarHeader extends Component {
 
     let indicator;
     if (this.props.showIndicator) {
-      indicator = <ActivityIndicator color={this.props.theme && this.props.theme.indicatorColor}/>;
+      indicator = <ActivityIndicator color={this.props.theme && this.props.theme.indicatorColor} />;
     }
 
-    const webProps = Platform.OS === 'web' ? {'aria-level': this.props.webAriaLevel} : {};
+    const webProps = Platform.OS === 'web' ? { 'aria-level': this.props.webAriaLevel } : {};
 
     return (
-      <View 
-        style={this.props.style} 
+      <View
+        style={this.props.style}
         accessible
         accessibilityRole={'adjustable'}
         accessibilityActions={[
-          {name: 'increment', label: 'increment'}, 
-          {name: 'decrement', label: 'decrement'}
+          { name: 'increment', label: 'increment' },
+          { name: 'decrement', label: 'decrement' }
         ]}
         onAccessibilityAction={this.onAccessibilityAction}
         accessibilityElementsHidden={this.props.accessibilityElementsHidden} // iOS
@@ -160,7 +161,7 @@ class CalendarHeader extends Component {
       >
         <View style={this.style.header}>
           {leftArrow}
-          <View style={{flexDirection: 'row'}}>
+          <View style={{ flexDirection: 'row' }}>
             <Text
               allowFontScaling={false}
               style={this.style.monthText}
@@ -174,7 +175,7 @@ class CalendarHeader extends Component {
         </View>
         {!this.props.hideDayNames &&
           <View style={this.style.week}>
-            {this.props.weekNumbers && 
+            {this.props.weekNumbers &&
               <Text allowFontScaling={false} style={this.style.dayHeader}></Text>
             }
             {weekDaysNames.map((day, idx) => (
@@ -184,8 +185,8 @@ class CalendarHeader extends Component {
                 style={this.style.dayHeader}
                 numberOfLines={1}
                 accessibilityLabel={''}
-                // accessible={false} // not working
-                // importantForAccessibility='no'
+              // accessible={false} // not working
+              // importantForAccessibility='no'
               >
                 {day}
               </Text>
@@ -198,14 +199,14 @@ class CalendarHeader extends Component {
 
   onAccessibilityAction = event => {
     switch (event.nativeEvent.actionName) {
-    case 'decrement':
-      this.onPressLeft();
-      break;
-    case 'increment':
-      this.onPressRight();
-      break;
-    default:
-      break;
+      case 'decrement':
+        this.onPressLeft();
+        break;
+      case 'increment':
+        this.onPressRight();
+        break;
+      default:
+        break;
     }
   }
 }
