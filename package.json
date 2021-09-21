@@ -22,20 +22,20 @@
   "author": "Wix.com",
   "license": "MIT",
   "dependencies": {
-    "hoist-non-react-statics": "^3.3.1",
-    "lodash": "^4.0.0",
-    "prop-types": "^15.5.10",
-    "xdate": "^0.8.0"
+    "hoist-non-react-statics": "^3.3.2",
+    "lodash": "^4.17.21",
+    "prop-types": "^15.7.2",
+    "xdate": "^0.8.2"
   },
   "devDependencies": {
-    "babel-eslint": "^7.2.3",
-    "eslint": "^6.5.1",
-    "eslint-plugin-react": "^7.0.0",
-    "jasmine": "^2.5.2",
-    "react": "16.9.0",
-    "react-native": "0.61.4",
-    "react-native-navigation": "^3.5.1",
-    "semver": "5.x.x",
-    "shell-utils": "1.x.x"
+    "babel-eslint": "^10.1.0",
+    "eslint": "^7.32.0",
+    "eslint-plugin-react": "^7.26.0",
+    "jasmine": "^3.9.0",
+    "react": "^17.0.2",
+    "react-native": "^0.65.1",
+    "react-native-navigation": "^7.21.0",
+    "semver": "^7.3.5",
+    "shell-utils": "^1.0.10"
   }
 }
